@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string? Name { get; set; }                
         public string? Level { get; set; } //["A", "B", "C"]
-        public string? Position { get; set; } // ["G", "Z", "M", "A"]
+        public int? Position { get; set; } // [1 = "Goleiro", 2 = "Zagueiro", 3 = "Meio", 4 = "Atacante"]
 
     }
 }

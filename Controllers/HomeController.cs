@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sorteio.Models;
 using Sorteio.Map;
+using sorteio.Models;
 
 namespace Sorteio.Controllers
 {
@@ -26,12 +27,77 @@ namespace Sorteio.Controllers
 
         [HttpPost("sort")]
         public IActionResult SorteiaTimes(
-             List<Player> players)
+             List<Player> players,
+             [FromServices] SorteioDataContext context)
         {
-            //to-do => montar algoritmo p/ sortear
+
+            try
+            {
+                if (players.Count() < 12)
+                    return BadRequest("Mínimo de 12 jogadores necessários");
+
+                var blueTeam = new Team();
+                var whiteTeam = new Team();
+                var greenTeam = new Team();
+
+                var playersOrd = players
+                                    .OrderBy(x => x.Position)
+                                    .ThenBy(x => x.Level)
+                                    .ThenBy(x => Guid.NewGuid()).ToList();
+
+                var currentColor = "blue";
+
+                foreach (var player in playersOrd)
+                {
+                    if (currentColor == "blue")
+                    {
+                        blueTeam.Players.Add(player);
+                        currentColor = "white";
+                    }
+                    else if (currentColor == "white")
+                    {
+                        whiteTeam.Players.Add(player);
+
+                        if (players.Count() > 16)
+                            currentColor = "green";
+                        else
+                            currentColor = "blue";
+                    }
+                    else if (currentColor == "green")
+                    {
+                        greenTeam.Players.Add(player);
+                        currentColor = "blue";
+                    }
+                }
+
+                var teams = new List<Team>();
+
+                blueTeam.Color = "blue";
+                blueTeam.Players
+                            .OrderBy(x => x.Position)
+                            .ThenBy(x => x.Level).ToList();
+
+                whiteTeam.Color = "white";
+                whiteTeam.Players
+                            .OrderBy(x => x.Position)
+                            .OrderBy(x => x.Level);
+
+                greenTeam.Color = "green";
+                greenTeam.Players
+                            .OrderBy(x => x.Position)
+                            .OrderBy(x => x.Level);
+
+                teams.Add(blueTeam);
+                teams.Add(whiteTeam);
+                teams.Add(greenTeam);
 
 
-            return Ok();
+                return Ok(teams);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.InnerException.Message);
+            }
         }
 
         [HttpPost("insert-player")]
@@ -107,7 +173,6 @@ namespace Sorteio.Controllers
                 return Problem(e.InnerException.Message);
             }
         }
-
-
+    
     }
 }

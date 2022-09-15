@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sorteio.Map;
 
@@ -10,9 +11,10 @@ using Sorteio.Map;
 namespace Sorteio.Migrations
 {
     [DbContext(typeof(SorteioDataContext))]
-    partial class SorteioDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220914170259_v3")]
+    partial class v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

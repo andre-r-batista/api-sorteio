@@ -30,7 +30,7 @@ namespace Sorteio.Map
             builder.Property(x => x.Position)
                 .IsRequired()
                 .HasColumnName("Position")
-                .HasColumnType("VARCHAR")
+                .HasColumnType("SMALLINT")
                 .HasMaxLength(1);
         }
     }
