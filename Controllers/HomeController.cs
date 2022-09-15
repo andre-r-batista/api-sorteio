@@ -40,14 +40,13 @@ namespace Sorteio.Controllers
                 var whiteTeam = new Team();
                 var greenTeam = new Team();
 
-                var playersOrd = players
-                                    .OrderBy(x => x.Position)
-                                    .ThenBy(x => x.Level)
-                                    .ThenBy(x => Guid.NewGuid()).ToList();
+                players = players.OrderBy(x => x.Position)
+                                 .ThenBy(x => x.Level)
+                                 .ThenBy(x => Guid.NewGuid()).ToList();
 
                 var currentColor = "blue";
 
-                foreach (var player in playersOrd)
+                foreach (var player in players)
                 {
                     if (currentColor == "blue")
                     {
@@ -90,7 +89,6 @@ namespace Sorteio.Controllers
                 teams.Add(blueTeam);
                 teams.Add(whiteTeam);
                 teams.Add(greenTeam);
-
 
                 return Ok(teams);
             }
