@@ -6,10 +6,21 @@ namespace Sorteio.Map
 {
     public class SorteioDataContext : DbContext
     {
+        public SorteioDataContext()
+        {
+        }
+
+        public SorteioDataContext(DbContextOptions options) : base(options)
+        {
+            Database.Migrate();
+        }
+
         public DbSet<Player> Players { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=localhost,1433;Database=StaTereza;User ID=sa;Password=1q2w3e4r@#$");
+        {
+            base.OnConfiguring(options);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

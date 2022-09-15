@@ -7,7 +7,7 @@ using sorteio.Models;
 namespace Sorteio.Controllers
 {
     [ApiController]
-    [Route("home")]
+    [Route("api/[controller]")]
     public class HomeController : ControllerBase
     {
         [HttpGet("")]
