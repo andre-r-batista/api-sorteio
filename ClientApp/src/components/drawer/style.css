@@ -1,0 +1,27 @@
+.drawer-content {
+  width: 240px;
+  height: 100vh;
+
+  padding-top: 72px;
+  box-sizing: border-box;
+
+  background-color: rgb(224, 231, 236);
+}
+
+.drawer-item {
+  padding: 8px;
+  margin-bottom: 12px; 
+  cursor: pointer;
+
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+.drawer-item:hover {
+  border: 1px solid gray;
+}
+
+.drawer-item-active {
+  background-color: white;
+}
