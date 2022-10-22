@@ -171,6 +171,26 @@ namespace Sorteio.Controllers
                 return Problem(e.InnerException.Message);
             }
         }
-    
+
+        [HttpGet("get-player/{id}")]
+        public IActionResult GetPlayer(
+            [FromRoute] int id,
+            [FromServices] SorteioDataContext context)
+        {
+            try
+            {
+                var player = context.Players.FirstOrDefault(x => x.Id == id);
+
+                if (player is null)
+                    throw new Exception("Jogador não encontrado!");
+
+                return Ok(player);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }
